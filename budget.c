@@ -1,52 +1,78 @@
 #include "budget.h"
+/* Budget */
+void show_dashboard(User *user);
+void user_menu(User *user);
 
-void manageBudget(void) {
-    printf("Budget module\n");
+void show_dashboard(User *user)
+{
+    printf("\n");
+    printf("=====================================\n");
+    printf("             DASHBOARD\n");
+    printf("=====================================\n");
+
+    printf("Balance          : %.2f\n", user->balance);
+    printf("Monthly Income   : %.2f\n", user->monthly_income);
+    printf("Monthly Budget   : %.2f\n", user->monthly_budget);
+    printf("Savings Goal     : %.2f\n", user->savings_goal);
+
+    printf("\n");
+    printf("Budget Used      : 0.00%%\n");
+    printf("Alerts           : None\n");
+    printf("Upcoming Expense : None\n");
+    printf("Pending Dues     : 0.00\n");
+
+    printf("=====================================\n");
 }
 
-#include <stdio.h>
-
-float totalBudget = 0;
-float totalIncome = 0;
-
-void budgetMenu() {
+void user_menu(User *user)
+{
     int choice;
-    float amount;
 
-    do {
-        printf("\n--- Budget & Income Management ---\n");
-        printf("1. Set Budget\n");
-        printf("2. Add Income\n");
-        printf("3. Show Budget Summary\n");
-        printf("0. Back to Main Menu\n");
-        printf("Enter choice: ");
+    while (1)
+    {
+        printf("\n");
+        printf("=====================================\n");
+        printf("          MYPOCKET FINANCE MENU\n");
+        printf("=====================================\n");
+        printf("1. Manage Income\n");
+        printf("2. Manage Budget\n");
+        printf("3. Add Expense\n");
+        printf("4. View Transactions\n");
+        printf("5. Financial Summary\n");
+        printf("6. Logout\n");
+        printf("=====================================\n");
+        printf("Enter your choice: ");
+
         scanf("%d", &choice);
 
-        switch(choice) {
+        switch (choice)
+        {
             case 1:
-                printf("Enter budget amount: ");
-                scanf("%f", &totalBudget);
-                printf("Budget set successfully!\n");
+                printf("\nIncome module coming soon...\n");
                 break;
 
             case 2:
-                printf("Enter income amount: ");
-                scanf("%f", &amount);
-                totalIncome += amount;
-                printf("Income added successfully!\n");
+                printf("\nBudget module coming soon...\n");
                 break;
 
             case 3:
-                printf("\nCurrent Budget: %.2f\n", totalBudget);
-                printf("Total Income: %.2f\n", totalIncome);
+                printf("\nExpense module coming soon...\n");
                 break;
 
-            case 0:
-                printf("Returning to Main Menu...\n");
+            case 4:
+                printf("\nTransaction module coming soon...\n");
                 break;
+
+            case 5:
+                printf("\nFinancial summary coming soon...\n");
+                break;
+
+            case 6:
+                printf("\nLogging out...\n");
+                return;
 
             default:
-                printf("Invalid choice!\n");
+                printf("\nInvalid choice. Try again.\n");
         }
-    } while(choice != 0);
+    }
 }

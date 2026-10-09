@@ -1,31 +1,63 @@
 #include "budget.h"
 
-int main(void) {
+int main(void)
+{
     int choice;
 
-    do {
-        printf("\n===== MyPocket =====\n");
+    printf("\n");
+    printf("=====================================\n");
+    printf("       MYPOCKET - STUDENT FINANCE\n");
+    printf("=====================================\n");
+
+    while (1)
+    {
+        printf("\n");
+        printf("---------- MAIN MENU ----------\n");
         printf("1. Register\n");
         printf("2. Login\n");
-        printf("3. Budget\n");
-        printf("4. Expense\n");
-        printf("5. Event\n");
-        printf("6. Funding\n");
-        printf("0. Exit\n");
-        printf("Enter choice: ");
+        printf("3. Exit\n");
+        printf("-------------------------------\n");
+        printf("Enter your choice: ");
+
         scanf("%d", &choice);
 
-        switch (choice) {
-            case 1: registerUser(); break;
-            case 2: loginUser(); break;
-            case 3: manageBudget(); break;
-            case 4: addExpense(); break;
-            case 5: createEvent(); break;
-            case 6: createFunding(); break;
-            case 0: printf("Goodbye!\n"); break;
-            default: printf("Invalid choice\n");
+        switch (choice)
+        {
+            case 1:
+                register_user();
+                break;
+
+            case 2:
+{
+    char username[30];
+    User current_user;
+
+    printf("Enter username: ");
+    scanf("%29s", username);
+
+    if (login_user(username))
+    {
+        load_user(username, &current_user);
+
+        printf("\nLogin successful!\n");
+
+        show_dashboard(&current_user);
+    }
+    else
+    {
+        printf("\nLogin failed.\n");
+    }
+
+    break;
+}
+            case 3:
+                printf("\nThank you for using MyPocket!\n");
+                return 0;
+
+            default:
+                printf("\nInvalid choice.\n");
         }
-    } while (choice != 0);
+    }
 
     return 0;
 }

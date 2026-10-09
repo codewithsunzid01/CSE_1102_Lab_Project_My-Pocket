@@ -5,79 +5,70 @@
 #include <stdlib.h>
 #include <string.h>
 
-#define MAX_NAME 50
-#define MAX_TITLE 100
-#define MAX_DATE 11
-#define MAX_CATEGORY 30
-#define MAX_RECORDS 500
+/* ---------- MACROS ---------- */
+
+#define MAX_USERS 100
+#define MAX_TRANSACTIONS 500
+#define MAX_EVENTS 100
+#define MAX_FUNDINGS 100
+
+#define USER_FILE "data/users.dat"
+#define TRANSACTION_FILE "data/transactions.dat"
+#define EVENT_FILE "data/events.dat"
+#define FUNDING_FILE "data/fundings.dat"
+
+/* ---------- ENUM ---------- */
 
 typedef enum {
-    EVENT_OPEN,
-    EVENT_SETTLED
-} EventStatus;
+    TRANSFER,
+    FUNDING,
+    GROUP_PAYMENT,
+    SETTLEMENT
+} TransactionType;
 
-typedef enum {
-    FUND_DRAFT,
-    FUND_POSTED
-} FundingStatus;
+
+/* ---------- STRUCTURES ---------- */
 
 typedef struct {
-    int id;
-    char username[MAX_NAME];
-    char password[MAX_NAME];
-    double balance;
+    char username[30];
+    char password[50];
+
+    float balance;
+    float monthly_income;
+    float monthly_budget;
+    float savings_goal;
+
 } User;
 
+
 typedef struct {
     int id;
-    int userId;
-    double amount;
-    char type[MAX_CATEGORY];
-    char date[MAX_DATE];
+
+    char username[30];
+    char description[100];
+    char category[30];
+
+    float amount;
+
+    int day;
+    int month;
+    int year;
+
 } Transaction;
 
-typedef struct {
-    int id;
-    char name[MAX_TITLE];
-    double totalCost;
-    char date[MAX_DATE];
-    int creatorId;
-    EventStatus status;
-    int attendeeCount;
-} Event;
 
-typedef struct {
-    int eventId;
-    int userId;
-    double paidAmount;
-} Participant;
+/* ---------- FUNCTION PROTOTYPES ---------- */
 
-typedef struct {
-    int id;
-    char purpose[MAX_TITLE];
-    double targetAmount;
-    int collectorId;
-    FundingStatus status;
-} Funding;
+/* Authentication */
+void register_user(void);
+int login_user(const char username[]);
 
-typedef struct {
-    int fundingId;
-    int userId;
-    double amount;
-} Contributor;
+/* Budget */
+void show_dashboard(User *user);
+void user_menu(User *user);
 
-/* Function prototypes */
-void registerUser(void);
-void loginUser(void);
-void manageBudget(void);
-void addExpense(void);
-void createEvent(void);
-void createFunding(void);
-void searchRecords(void);
-void handleCalendar(void);
-void generateReport(void);
-void saveToFile(void);
-void loadFromFile(void);
-void clearScreen(void);
+/* File handling */
+void save_user(User *user);
+int load_user(const char username[], User *user);
 
-#endif 
+#endif
